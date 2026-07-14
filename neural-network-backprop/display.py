@@ -1,6 +1,6 @@
 import numpy as np
 
-# (Reutilizando a classe NeuralNetwork e funções auxiliares definidas acima)
+from neural_network import NeuralNetwork
 
 # --- Execução do Problema 2: 7 Segmentos  ---
 
@@ -39,7 +39,7 @@ y_digits = np.array([
 nn_digits = NeuralNetwork(layer_sizes=[7, 5, 10])
 
 # Treinamento
-nn_digits.train(y_digits, y_digits, epochs=15000, learning_rate=0.05)
+nn_digits.train(X_digits, y_digits, epochs=15000, learning_rate=0.05)
 
 # Teste (Prints para o relatório)
 print("\n--- Resultados (Prints) dos 7 Segmentos  ---")

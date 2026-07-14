@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -7,6 +9,11 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
+# Os dados (train.csv) ficam na raiz da pasta, um nível acima de src/.
+BASE_DIR = Path(__file__).resolve().parent.parent
+TRAIN_CSV = BASE_DIR / 'train.csv'
+TREE_PNG = BASE_DIR / 'titanic_decision_tree.png'
+
 def main():
     """
     Executa a análise completa da base de dados do Titanic.
@@ -14,10 +21,10 @@ def main():
     # --- Passo 1: Carregamento dos Dados ---
     print("--- Carregando a base de dados do Titanic (train.csv) ---")
     try:
-        titanic_df = pd.read_csv('./train.csv')
+        titanic_df = pd.read_csv(TRAIN_CSV)
         print("DataFrame carregado com sucesso.")
     except FileNotFoundError:
-        print("Erro: O arquivo 'train.csv' não foi encontrado. Por favor, certifique-se de que ele está no mesmo diretório.")
+        print(f"Erro: O arquivo 'train.csv' não foi encontrado em {TRAIN_CSV}.")
         return
 
     # --- Passo 2: Pré-processamento e Codificação dos Dados ---
@@ -97,8 +104,8 @@ def main():
         fontsize=10
     )
     plt.title('Árvore de Decisão - Padrão de Sobrevivência no Titanic')
-    plt.savefig('titanic_decision_tree.png')
-    print("Árvore de decisão salva como 'titanic_decision_tree.png'.")
+    plt.savefig(TREE_PNG)
+    print(f"Árvore de decisão salva em '{TREE_PNG}'.")
 
 if __name__ == "__main__":
     main()
